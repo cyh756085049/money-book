@@ -39,32 +39,90 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## 项目笔记
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 展示型组件
+* 关心数据的展示方式
+* 不依赖app中的其它文件
+* 不关心数据是如何加载和变化的
+* 仅通过props接收数据和回调函数
+* 除非需要用到state,生命周期函数或性能优化,通常写成函数式组件
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 容器型组件
+* 关心数据的运作方式
+* 为展示型组件提供数据和操作数据的方法
+* 为展示型组件提供回调函数
+* 通常是有状态的,并且作为数据源存在
 
-### Code Splitting
+#### 代码文件结构及命名规范
+* components文件夹存放所有的展示型组件
+* containers文件夹存放所有的容器型组件
+* 这两个文件夹下的__test__文件夹存放所有组件测试文件
+* 文件使用Pascal Case命名法
+* src根目录下放统一使用的一些文件
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### React理念步骤初步理解
+* 第一步把UI划分出组件层级
+* 第二步创建应用的静态版本
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### 在React中使用Bootstrap
+1、可以在react项目中执行以下命令安装bootstrap
+```js
+npm install bootstrap@4 --save
+```
+2、在使用的时候，直接在对应（index.js或者App.js）文件导入即可
+```js
+import 'bootstrap/dist/css/bootstrap.min.css';
+```
 
-### Making a Progressive Web App
+#### React使用JSX语法在Vscode自动保存后报错（解决Vscode自动保存格式化的问题）
+在插件中寻找把 JS-CS-HTML Formatter 这个插件，把其卸载掉
+可以使用插件Prettier-Code formatter
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### 图标库
+安装ionicon图表库
+```js
+npm install react-ionicons@2.1.6 --save
+```
 
-### Advanced Configuration
+#### 为项目选择图标库
+* 使用svg图表库而不是font icon
+* 很多free icon set - icomoon、Ionicons ...
+* 里我们选用Ionicons点https://ionicons.com/
+* 使用react-ionicons改造PriceList组件
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+代码示例
+```js
+import Ionicon from 'react-ionicons'
+<Ionicon className="rounded-circle" 
+                    fontSize="30px"
+                    style={{backgroundColor: '#dc3545', padding: '5px'}}
+                    color={'#fff'}
+                    icon='ios-close'>
+                    </Ionicon>
+```
+#### 安装类型检查工具包
+```js
+npm install --save prop-types
+```
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+##### 代码示例
+```js
+import PropTypes from 'prop-types'
+// 类型检查
+PriceList.propTypes = {
+    items: PropTypes.array.isRequired,
+    onModifyItem: PropTypes.func.isRequired,
+    onDeleteItem: PropTypes.func.isRequired
+}
+PriceList.defaultProps = {
+    items: [],
+    onModifyItem: () => {}
+}
+```
+##### 使用PropTypes检查属性类型
+* 类型检查可以帮助我们更好的发现Bug
+* React 内置了PropTypes 来完成这个任务
+* Props 默认的值: defaultProps
+* 为ItemList添加PropTypes检查
