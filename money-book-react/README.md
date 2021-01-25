@@ -126,3 +126,87 @@ PriceList.defaultProps = {
 * React 内置了PropTypes 来完成这个任务
 * Props 默认的值: defaultProps
 * 为ItemList添加PropTypes检查
+
+
+### State 设计原则
+* 最小化State原则
+* DRY - Don't Repeat Yourself
+* 有些数据可以根据State计算得出
+
+
+首页State分析
+* 价格列表
+* 当前年月
+* 钱数之处收入总和
+* 注意价格条目的分类信息和月份信息
+* 当前视图信息（列表模式，图表模式）
+
+
+### 总结
+1、组合所有静态组件
+2、State设计原则
+3、State分析和最终结果
+4、分析数据流和添加单项数据流
+
+### 通用测试框架 Jest
+* 通用测试框架
+* 支持多平台，运行速度极快
+* 内置代码覆盖率测试
+* 为React提供了一些特殊的测试方法
+
+断言库
+1、新建一个测试文件`excmple.test.js`
+2、编写测试代码
+```js
+import { exact } from "prop-types"
+
+test('test equal', () => {
+    expect(2 + 2).toBe(4)
+})
+test('test no equal', () => {
+    expect(2 + 2).not.toBe(5)
+})
+test('test to be true or false', () => {
+    expect(1).toBeTruthy()
+    expect(0).toBeFalsy()
+})
+
+test('test number', () => {
+    expect(4).toBeGreaterThan(3)
+    expect(0).toBeLessThan(5)
+})
+
+test('test object', () => {
+    expect({name:'ramona', age: 30}).toEqual({name: 'ramona', age: 30})
+})
+```
+3、运行测试文件
+```js
+npm test 文件路径(src/example.js)
+```
+
+#### React测试工具
+* React 官方测试工具-ReactTestUtils
+* Airbnb 基于官方的封装-Enzyme
+
+Enzyme优点
+1、简单易懂
+2、类似Jquery 链式写法
+
+两种测试方法
+* Shallow Rendering
+* DOM Rendering
+
+#### 使用enzyme进行测试
+1、安装依赖
+```js
+npm install enzyme enzyme-adapter-react-16 --save-dev
+```
+2、在setupTests.js中进行配置
+```js
+import { configure } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+
+configure({ adapter: new Adapter()})
+
+```
