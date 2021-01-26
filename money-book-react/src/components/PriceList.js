@@ -16,12 +16,13 @@ const PriceList = ({items, onModifyItem, onDeleteItem}) => {
                   fontSize="30px"
                   style={{backgroundColor: '#077bff', padding: '5px'}}
                   color={'#fff'}
-                  icon={item.category.iconName}></Ionicon>
-              {item.category.name}
+                  icon="ios-plane"></Ionicon>
+              {item.cid}
               </span>
               <span className="col-5">{item.title}</span>
               <span className="col-2 font-weight-bold">
-                  {(item.category.type === 'income') ? '+' : '-'}{item.price}元
+                  {/* {(item.category.type === 'income') ? '+' : '-'}{item.price}元 */}
+                  {item.price}元
               </span>
               <span className="col-2">{item.date}</span>
               <a className="col-1" onClick={() => {onModifyItem(item)}}> 

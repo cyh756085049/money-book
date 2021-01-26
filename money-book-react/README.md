@@ -208,5 +208,44 @@ import { configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
 configure({ adapter: new Adapter()})
+```
+3、创建一个测试文件 `xxx.test.js`
+```js
+import React from 'react'
+import { shallow } from 'enzyme'
+import TotalPrice from '../TotalPrice'
 
+const props = {
+    income: 1000,
+    outcome: 2000
+}
+
+describe('test TotalPrice component', () => {
+    it('component should render corrent income&outcome number', ()=> {
+        const wrapper = shallow(<TotalPrice {...props}></TotalPrice>)
+        expect(wrapper.find('.income span').text() * 1).toEqual(1000)
+        expect(wrapper.find('.outcome span').text() * 1).toEqual(2000)
+    })
+})
+```
+
+#### 价格列表单元测试用例分析
+* 传入特定数组，是否渲染对应长度的条目
+* 每个条目是否渲染特定组件和内容
+* 点击按钮是否触发特定回调
+
+TDD 
+
+Snapshot testing  快照测试
+
+### SPA页面
+#### 什么是SPA
+* 一种Web应用程序或网站
+* 在和用户交互的时候用户不会跳转到其他的页面
+* 由JS实现URL变换和动态变换HTML的内容
+
+### React Router
+1、安装react-router
+```js
+npm install react-router-dom --save 
 ```
